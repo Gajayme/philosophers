@@ -3,33 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 20:16:46 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/11 13:32:24 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/11 21:56:48 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*up_malloc(size_t	size)
+void	mutex_init(t_table *table)
 {
-	void	*p;
-
-	p = malloc(size);
-	if (!p)
-		exit (1);
-	return (p);
+	int i;
+	
+	i = -1;
+	while (++i < table->am_philo)
+	{
+		//printf("Initing %d mutex\n", i);
+		pthread_mutex_init(&table->mutex_arr[i], NULL);
+	}
 }
 
-void	up_perror(char *err_msg, t_table *table, t_philo *philo)
+void	mutex_dest(t_table *table)
 {
-	if (table->mutex_arr)
-		free(table->mutex_arr);
-	if (table->threads)
-		free(table->threads);
+	int	i;
+
+	i = -1;
+	while (&table->mutex_arr[++i] != NULL && i < table->am_philo)
+	{
+		//printf("Destroing %d mutex\n", i);
+		pthread_mutex_destroy(&table->mutex_arr[i]);
+	}
+}
+
+void	up_perror(char *err_msg, char *prog_name, t_table *table, t_philo *philo)
+{
+	if (table)
+	{
+		if (table->mutex_arr)
+			free(table->mutex_arr);
+		if (table->threads)
+			free(table->threads);
+	}
 	if (philo)
 		free(philo);
-	perror(err_msg);
+	if (err_msg && !prog_name)
+		up_putstr_fd(err_msg, 2);
+	else if (!err_msg && prog_name)
+		perror(prog_name);
 	exit (1);
 }

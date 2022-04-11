@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/11 13:24:08 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/11 21:06:54 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ void	valid(char **av, t_table *table);
 int		up_isdigit(char *arg);
 long	up_atoi(const char *str);
 int		up_putstr_fd(char *s, int fd);
-
+void	up_bzero(void *s, size_t n);
+void	*up_calloc(size_t size, t_table *table, t_philo *philo);
 //utils
-void	*up_malloc(size_t	size);
-void	up_perror(char *err_msg, t_table *table, t_philo *philo);
+void	mutex_dest(t_table *table);
+void	mutex_init(t_table *table);
+void	up_perror(char *err_msg, char *prog_name, t_table *table, t_philo *philo);
 
 #endif

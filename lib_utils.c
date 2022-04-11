@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:28:21 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/09 18:28:42 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/11 20:28:17 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ long	up_atoi(const char *str)
 
 	negative = 1;
 	res = 0;
-	// while (*str && (*str == ' ' || *str == '\n' || *str == '\t'
-	// 		|| *str == '\v' || *str == '\f' || *str == '\r'))
-	// 	++str;
 	if (*str == '-')
 		negative = -1;
 	if (*str == '-' || *str == '+')
@@ -57,4 +54,24 @@ int	up_putstr_fd(char *s, int fd)
 		s += 1;
 	}
 	return (0);
+}
+
+void	up_bzero(void *s, size_t n)
+{
+	char	*arr;
+
+	arr = s;
+	while (n --)
+		*arr++ = '\0';
+}
+	
+void	*up_calloc(size_t size, t_table *table, t_philo *philo)
+{
+	void	*p;
+
+	p = malloc(size);
+	if (!p)
+		up_perror(NULL, "Philo", table, philo);
+	up_bzero(p, size);
+	return (p);
 }
