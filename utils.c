@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 20:16:46 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/11 21:56:48 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/12 01:03:25 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	mutex_init(t_table *table)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (++i < table->am_philo)
 	{

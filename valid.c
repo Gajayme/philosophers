@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/11 13:16:52 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/12 00:47:30 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void	valid(char **av, t_table *table)
 		table->time_without_eat = 0;
 	else
 		table->time_without_eat = adder(av[i++], 0);
-	table->mutex_arr = NULL;
+	//table->mutex_arr = NULL;
 	table->threads = NULL;
 }

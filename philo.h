@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/11 21:06:54 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/12 00:59:49 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_philo
 	int				time_sleep;
 	int				time_without_eat;
 
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	right_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 }		t_philo;
 
 typedef struct s_table
