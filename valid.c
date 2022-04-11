@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/09 18:31:09 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/11 13:16:52 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,19 @@ int	adder(char *arg, int flag)
 	return (num);
 }
 
-void	valid(char **av, t_philo *data)
+void	valid(char **av, t_table *table)
 {
 	int	i;
 
 	i = 1;
-	data->num_philo = adder(av[i++], 1);
-	data->time_die = adder(av[i++], 0);
-	data->time_eat = adder(av[i++], 0);
-	data->time_sleep = adder(av[i++], 0);
+	table->am_philo = adder(av[i++], 1);
+	table->time_die = adder(av[i++], 0);
+	table->time_eat = adder(av[i++], 0);
+	table->time_sleep = adder(av[i++], 0);
 	if (!av[i])
-		data->time_without_eat = 0;
+		table->time_without_eat = 0;
 	else
-		data->time_without_eat = adder(av[i++], 0);
+		table->time_without_eat = adder(av[i++], 0);
+	table->mutex_arr = NULL;
+	table->threads = NULL;
 }

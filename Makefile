@@ -24,7 +24,7 @@ $(NAME):	$(OBJ) $(INC)
 #include $(wildcard $(D_FILES))
 
 clean:
-			$(RM) $(OBJ)
+			$(RM) $(OBJ) *.d
 
 fclean: 	clean
 			$(RM) $(NAME)
