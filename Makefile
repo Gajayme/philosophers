@@ -3,7 +3,7 @@ NAME	= philo
 CC		= gcc -Wall -Wextra -Werror -MMD
 
 SRC		= philo.c valid.c lib_utils.c \
-			utils.c \
+			utils.c activities.c\
 
 INC		= philo.h
 
