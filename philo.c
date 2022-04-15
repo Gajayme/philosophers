@@ -6,17 +6,26 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/14 19:04:55 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/14 21:16:30 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	get_time(long *time)
+{
+	struct timeval	cur_time;
+
+	gettimeofday(&cur_time, NULL);
+	*time = cur_time.tv_sec * 1000 + cur_time.tv_usec/1000;
+}
 
 void	*routine(void *arg)
 {
 	t_philo	philo;
 
 	philo = *((t_philo *)arg);
+	get_time(&philo.time_start);
 	if (philo.idx_philo % 2 == 1)
 		fork_odd(&philo);
 	else
@@ -39,7 +48,7 @@ void	philo_fill(t_table *table, t_philo *philo, int i)
 	philo->time_eat = table->time_eat;
 	philo->time_sleep = table->time_sleep;
 	philo->time_without_eat = table->time_without_eat;
-	philo->time_start = table->time_table.tv_sec * 1000 + table->time_table.tv_usec / 1000;
+	//philo->time_start = table->time_table.tv_sec * 1000 + table->time_table.tv_usec / 1000;
 }
 
 void	thread_manager(t_table *table)
@@ -50,8 +59,8 @@ void	thread_manager(t_table *table)
 	philo = (t_philo *)up_calloc(sizeof(t_philo) * table->am_philo, NULL, NULL);
 	table->mutex_arr = (pthread_mutex_t *)up_calloc(sizeof(pthread_mutex_t) * table->am_philo, table, philo);
 	mutex_init(table);
-	table->threads = (pthread_t *)up_calloc(sizeof(pthread_t) * table->am_philo, table, philo);
-	gettimeofday(&table->time_table, NULL);
+	//table->threads = (pthread_t *)up_calloc(sizeof(pthread_t) * table->am_philo, table, philo);
+	//gettimeofday(&table->time_table, NULL);
 	//printf("milisec = %ld\n\n", table->time.tv_sec);
 	i = -1;
 	while (++i < table->am_philo)

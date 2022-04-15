@@ -32,7 +32,7 @@ int	fork_even(t_philo *philo)
 
 int	eating(t_philo *philo)
 {
-	//printf("%ldms %d is eating\n", timer(philo->time_start), philo->idx_philo);
+	printf("%ldms %d is eating\n", timer(philo->time_start), philo->idx_philo);
 	waiter(philo->time_eat);
 	return (0);
 }

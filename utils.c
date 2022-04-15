@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 20:16:46 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/14 20:14:08 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/14 20:49:50 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,13 @@ void	waiter(int time)
 
 	gettimeofday(&start_eat, NULL);
 	time_to_wait = time * 1000;
-	usleep ((time_to_wait * 95) / 100);
+	usleep ((time_to_wait * 90) / 100);
 	gettimeofday(&now_eat, NULL);
 	while (((now_eat.tv_sec * 1000000 + now_eat.tv_usec)
-			- (start_eat.tv_sec * 1000000 + start_eat.tv_usec)) > time_to_wait)
+			- (start_eat.tv_sec * 1000000 + start_eat.tv_usec)) < time_to_wait)
 	{
-		usleep(1);
+	//	printf("WAITING...\n");
+		usleep(10);
 		gettimeofday(&now_eat, NULL);
 	}
 }
