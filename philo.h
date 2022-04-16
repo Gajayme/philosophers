@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/14 20:52:17 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/16 21:26:16 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@
 # include <limits.h>
 # include <time.h>
 
-# define MAX_THREADS 512
+//TIPS:
+//1. detach thread if we can't join in
+//2. no exit!!!
+//3. stdout mutex; last meal mutex
+//4. must die
+//5. init vars to custom sleep in struct
 
+//should all time vars be LONG LONG
 typedef struct s_philo
 {
 	int				idx_philo;
@@ -30,8 +36,8 @@ typedef struct s_philo
 	int				time_eat;
 	int				time_sleep;
 	int				time_without_eat;
-	long			time_start;
-	long			time_now;
+	long long		time_start;
+	long long		time_now;
 	struct timeval	time_philo;
 	struct timeval	last_meal;
 	pthread_mutex_t	*left_fork;
@@ -52,8 +58,9 @@ typedef struct s_table
 }		t_table;
 
 //main
+void	get_time(long long *time);
 void	thread_manager(t_table *table);
-void	philo_fill(t_table *table, t_philo *philo, int i);
+void	philo_fill(t_table *table, t_philo *philo);
 
 //valid
 int		adder(char *arg, int flag);
@@ -68,13 +75,15 @@ void	*up_calloc(size_t size, t_table *table, t_philo *philo);
 //utils
 void	mutex_dest(t_table *table);
 void	mutex_init(t_table *table);
-void	up_perror(char *err_msg, char *prog_name, t_table *table, t_philo *philo);
-long	timer(long time_start);
+void	up_perror(char *err_msg, char *pr_name, t_table *table, t_philo *philo);
+
+//time utils
+long	timer(long start);
 void	waiter(int time);
 
 //activities
-int		fork_odd(t_philo *philo);
-int		fork_even(t_philo *philo);
-int		eating(t_philo *philo);
+int		take_fork(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
 
 #endif

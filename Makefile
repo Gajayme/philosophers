@@ -2,8 +2,11 @@ NAME	= philo
 
 CC		= gcc -Wall -Wextra -Werror -MMD
 
+E_FLAGS	= -pthread
+#-fsanitize=thread
+
 SRC		= philo.c valid.c lib_utils.c \
-			utils.c activities.c\
+			utils.c activities.c time_utils.c\
 
 INC		= philo.h
 
@@ -16,7 +19,7 @@ OBJ		= 	$(patsubst %.c,%.o,$(SRC))
 all: 		$(NAME)
 
 $(NAME):	$(OBJ) $(INC)
-			$(CC) $(OBJ) -pthread  -o $(NAME)
+			$(CC) $(OBJ) $(E_FLAGS) -o $(NAME)
 
 %.o : %.c 	$(HEADER)
 			$(CC) -c $< -o $@

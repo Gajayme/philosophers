@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/13 13:03:10 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/16 15:53:15 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	adder(char *arg, int flag)
 		&& up_putstr_fd(" :invalid arg\n", 2))
 		exit (1);
 	num = up_atoi(arg);
-	if (((flag && (num > MAX_THREADS || num < 1))
-			|| (!flag && num > INT_MAX) || num < 0)
+	if (((flag && (num > INT_MAX || num < 2))
+			|| (!flag && (num > INT_MAX || num < 0)))
 		&& !up_putstr_fd(arg, 2) && !up_putstr_fd(" :invalid arg\n", 2))
 		exit (1);
 	return (num);
@@ -41,5 +41,7 @@ void	valid(char **av, t_table *table)
 	else
 		table->time_without_eat = adder(av[i++], 0);
 	table->mutex_arr = NULL;
-	//table->threads = NULL;
+	table->threads = NULL;
+
+	//underline doen't work (WHY???)
 	}

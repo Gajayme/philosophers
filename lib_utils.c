@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:28:21 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/11 20:28:17 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/16 18:40:03 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	up_isdigit(char *arg)
 			arg ++;
 		else
 			return (1);
-
 	}
 	return (0);
 }
@@ -50,7 +49,7 @@ int	up_putstr_fd(char *s, int fd)
 		return (1);
 	while (*s)
 	{
-		write(fd, s, 1);
+		if (write(fd, s, 1))
 		s += 1;
 	}
 	return (0);
@@ -64,14 +63,14 @@ void	up_bzero(void *s, size_t n)
 	while (n --)
 		*arr++ = '\0';
 }
-	
+
 void	*up_calloc(size_t size, t_table *table, t_philo *philo)
 {
 	void	*p;
 
 	p = malloc(size);
 	if (!p)
-		up_perror(NULL, "Philo", table, philo);
+		up_perror(NULL, "philo", table, philo);
 	up_bzero(p, size);
 	return (p);
 }
