@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/16 20:30:17 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/17 15:58:56 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,15 @@ void	philo_fill(t_table *table, t_philo *philo)
 	}
 }
 
-void	thread_manager(t_table *table)
+int	thread_manager(t_table *table)
 {
 	int		i;
 	t_philo	*philo;
 
-	philo = (t_philo *)up_calloc(sizeof(t_philo) * table->am_philo, NULL, NULL);
-	table->mutex_arr = (pthread_mutex_t *)up_calloc(sizeof(pthread_mutex_t)
-			* table->am_philo, table, philo);
-	mutex_init(table);
-	table->threads = (pthread_t *)up_calloc(sizeof(pthread_t)
-			* table->am_philo, table, philo);
-	// if we want make mutual time
+	//im here
+	if (memory_manager(&philo, table))
+		return (1);
 	gettimeofday(&table->time_table, NULL);
-	//printf("milisec = %ld\n\n", table->time.tv_sec);
 	philo_fill(table, philo);
 	i = -1;
 	while (++i < table->am_philo)
@@ -85,8 +80,8 @@ void	thread_manager(t_table *table)
 	{
 		if (pthread_join(table->threads[i], NULL) != 0)
 			up_perror(NULL, "philo", table, philo);
-		//printf("joining %d\n", i);
 	}
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -95,8 +90,9 @@ int	main(int ac, char **av)
 
 	if ((ac < 5 || ac > 6) && !up_putstr_fd("Invalid amount of arguments\n", 2))
 		return (1);
-	valid(av, &table);
-//	printf("time to sleep %d\n", table.time_eat);
-	thread_manager(&table);
+	if (valid(av, &table))
+		return (1);
+	if (thread_manager(&table))
+		return (1);
 	return (0);
 }

@@ -7,6 +7,7 @@ E_FLAGS	= -pthread
 
 SRC		= philo.c valid.c lib_utils.c \
 			utils.c activities.c time_utils.c\
+			mem_utils.c \
 
 INC		= philo.h
 

@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/16 21:26:16 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/17 15:57:34 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,30 @@ typedef struct s_table
 
 //main
 void	get_time(long long *time);
-void	thread_manager(t_table *table);
+int		thread_manager(t_table *table);
 void	philo_fill(t_table *table, t_philo *philo);
 
-//valid
-int		adder(char *arg, int flag);
-void	valid(char **av, t_table *table);
+//__valid__
+int		adder(char *arg, int flag, int *to_write);
+int		valid(char **av, t_table *table);
 
 //lib_utils
 int		up_isdigit(char *arg);
 long	up_atoi(const char *str);
 int		up_putstr_fd(char *s, int fd);
-void	up_bzero(void *s, size_t n);
-void	*up_calloc(size_t size, t_table *table, t_philo *philo);
 //utils
 void	mutex_dest(t_table *table);
-void	mutex_init(t_table *table);
-void	up_perror(char *err_msg, char *pr_name, t_table *table, t_philo *philo);
+int		mutex_init(t_table *table);
+int		up_perror(char *err_msg, char *pr_name, t_table *table, t_philo *philo);
 
 //time utils
 long	timer(long start);
 void	waiter(int time);
+
+//memory_utils
+int		memory_manager(t_philo **philo, t_table *table);
+void	up_bzero(void *s, size_t n);
+void	*up_calloc(size_t size, t_table *table, t_philo *philo);
 
 //activities
 int		take_fork(t_philo *philo);
