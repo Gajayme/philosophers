@@ -22,7 +22,7 @@ all: 		$(NAME)
 $(NAME):	$(OBJ) $(INC)
 			$(CC) $(OBJ) $(E_FLAGS) -o $(NAME)
 
-%.o : %.c 	$(HEADER)
+%.o : %.c 	$(INC)
 			$(CC) -c $< -o $@
 
 #include $(wildcard $(D_FILES))

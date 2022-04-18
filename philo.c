@@ -3,29 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/17 15:58:56 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/18 12:55:06 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	get_time(long long *time)
-{
-	struct timeval	cur_time;
-
-	gettimeofday(&cur_time, NULL);
-	*time = cur_time.tv_sec * 1000 + cur_time.tv_usec / 1000;
-}
 
 void	*routine(void *arg)
 {
 	t_philo	philo;
 
 	philo = *((t_philo *)arg);
-	//get_time(&philo.time_start);
 	while (1)
 	{
 		take_fork(&philo);
@@ -37,6 +28,7 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
+//do i really nedd pointer to table struct???
 void	philo_fill(t_table *table, t_philo *philo)
 {
 	int	i;
@@ -45,17 +37,22 @@ void	philo_fill(t_table *table, t_philo *philo)
 	while (++i < table->am_philo)
 	{
 		philo[i].idx_philo = i + 1;
-		philo[i].left_fork = &table->mutex_arr[i];
-		if (i == 0)
-			philo[i].right_fork = &table->mutex_arr[table->am_philo - 1];
-		else
-			philo[i].right_fork = &table->mutex_arr[i - 1];
+		philo[i].ph_dead = &table->tb_dead;
 		philo[i].time_die = table->time_die;
 		philo[i].time_eat = table->time_eat;
 		philo[i].time_sleep = table->time_sleep;
 		philo[i].time_without_eat = table->time_without_eat;
-		// if we want make mutual time
 		philo[i].time_start = table->time_table.tv_sec * 1000 + table->time_table.tv_usec / 1000;
+		philo[i].left_fork = &table->mutex_arr[i];
+		//malloc here (not freed)
+		philo[i].last_meal = (struct timeval *)malloc(sizeof(struct timeval));
+		//end
+		if (i == 0)
+			philo[i].right_fork = &table->mutex_arr[table->am_philo - 1];
+		else
+			philo[i].right_fork = &table->mutex_arr[i - 1];
+		philo[i].stdo_mut = &table->mutex_arr[table->am_philo];
+
 	}
 }
 
@@ -64,23 +61,32 @@ int	thread_manager(t_table *table)
 	int		i;
 	t_philo	*philo;
 
-	//im here
 	if (memory_manager(&philo, table))
 		return (1);
-	gettimeofday(&table->time_table, NULL);
 	philo_fill(table, philo);
 	i = -1;
 	while (++i < table->am_philo)
 	{
-		if (pthread_create(&table->threads[i], NULL, &routine, (void *)&philo[i]) != 0)
-			up_perror(NULL, "philo", table, philo);
+		if (pthread_create(&table->threads[i], NULL, &routine, (void *)&philo[i])
+		&& !cleaner("philo", table, philo))
+			return (1);
 	}
-	i = -1;
-	while (++i < table->am_philo)
+	while (1)
 	{
-		if (pthread_join(table->threads[i], NULL) != 0)
-			up_perror(NULL, "philo", table, philo);
+		sleep(1);
+		//here
+		while (--i > -1)
+			printf("\nlast meal = %ld\n\n", philo[i].last_meal->tv_sec * 1000 + philo[i].last_meal->tv_usec / 1000);
+		i = table->am_philo;
+		//here
 	}
+	while (--i >= 0)
+	{
+		if (pthread_join(table->threads[i], NULL)
+		&& !cleaner("philo", table, philo))
+			return (1);
+	}
+	cleaner(NULL, table, philo);
 	return (0);
 }
 

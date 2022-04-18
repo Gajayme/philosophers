@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/17 14:22:29 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/17 21:27:05 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ int	valid(char **av, t_table *table)
 		return (1);
 	if (av[i] && adder(av[i++], 0, &table->time_without_eat))
 		return (1);
+	table->tb_dead = 0;
+	gettimeofday(&table->time_table, NULL);
 	return (0);
 }

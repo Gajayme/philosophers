@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/17 15:57:34 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/18 12:53:15 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@
 
 //TIPS:
 //1. detach thread if we can't join in
-//2. no exit!!!
-//3. stdout mutex; last meal mutex
+//3. last meal mutex
 //4. must die
 //5. init vars to custom sleep in struct
 
@@ -32,6 +31,7 @@
 typedef struct s_philo
 {
 	int				idx_philo;
+	int				*ph_dead;
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
@@ -39,15 +39,16 @@ typedef struct s_philo
 	long long		time_start;
 	long long		time_now;
 	struct timeval	time_philo;
-	struct timeval	last_meal;
+	struct timeval	*last_meal;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-
+	pthread_mutex_t	*stdo_mut;
 }		t_philo;
 
 typedef struct s_table
 {
 	int				am_philo;
+	int				tb_dead;
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
@@ -73,7 +74,7 @@ int		up_putstr_fd(char *s, int fd);
 //utils
 void	mutex_dest(t_table *table);
 int		mutex_init(t_table *table);
-int		up_perror(char *err_msg, char *pr_name, t_table *table, t_philo *philo);
+int		cleaner(char *pr_name, t_table *table, t_philo *philo);
 
 //time utils
 long	timer(long start);

@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 20:16:46 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/17 15:57:04 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/18 12:21:35 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//IT COULD BE AN ERROR
 int	mutex_init(t_table *table)
 {
 	int	i;
 
 	i = -1;
-	while (++i < table->am_philo)
+	while (++i < table->am_philo + 2)
 	{
 		if (pthread_mutex_init(&table->mutex_arr[i], NULL) != 0)
 			return (1);
@@ -26,16 +25,17 @@ int	mutex_init(t_table *table)
 	return(0);
 }
 
+//it could be an error
 void	mutex_dest(t_table *table)
 {
 	int	i;
 
 	i = -1;
-	while (&table->mutex_arr[++i] != NULL && i < table->am_philo)
+	while (&table->mutex_arr[++i] != NULL && i < table->am_philo + 2)
 		pthread_mutex_destroy(&table->mutex_arr[i]);
 }
 
-int	up_perror(char *err_msg, char *pr_name, t_table *table, t_philo *philo)
+int	cleaner(char *pr_name, t_table *table, t_philo *philo)
 {
 	if (table)
 	{
@@ -49,9 +49,7 @@ int	up_perror(char *err_msg, char *pr_name, t_table *table, t_philo *philo)
 	}
 	if (philo)
 		free(philo);
-	if (err_msg && !pr_name)
-		up_putstr_fd(err_msg, 2);
-	else if (!err_msg && pr_name)
+	if (pr_name)
 		perror(pr_name);
 	return (0);
 }
