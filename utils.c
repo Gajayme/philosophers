@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 20:16:46 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/18 12:21:35 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/18 19:58:13 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	mutex_init(t_table *table)
 	return(0);
 }
 
-//it could be an error
 void	mutex_dest(t_table *table)
 {
 	int	i;
@@ -48,7 +47,10 @@ int	cleaner(char *pr_name, t_table *table, t_philo *philo)
 			free(table->threads);
 	}
 	if (philo)
+	{
+		
 		free(philo);
+	}	
 	if (pr_name)
 		perror(pr_name);
 	return (0);

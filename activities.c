@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   activities.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:23:58 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/18 12:56:56 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/18 20:43:46 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int	take_fork(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
+	struct timeval last_meal;
 	pthread_mutex_lock(philo->stdo_mut);
 	printf("%ldms %d is eating\n", timer(philo->time_start), philo->idx_philo);
-	//here
-	gettimeofday(philo->last_meal, NULL);
-	//here
+	gettimeofday(&last_meal, NULL);
+	philo->last_meal = count_time(last_meal);
 	pthread_mutex_unlock(philo->stdo_mut);
 	waiter(philo->time_eat);
 }

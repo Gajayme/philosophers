@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/18 12:55:06 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/18 20:47:57 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	*routine(void *arg)
 {
-	t_philo	philo;
+	t_philo	*philo;
 
-	philo = *((t_philo *)arg);
+	philo = ((t_philo *)arg);
 	while (1)
 	{
-		take_fork(&philo);
-		eating(&philo);
-		pthread_mutex_unlock(philo.left_fork);
-		pthread_mutex_unlock(philo.right_fork);
-		sleeping(&philo);
+		take_fork(philo);
+		eating(philo);
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		sleeping(philo);
 	}
 	return (NULL);
 }
@@ -42,17 +42,14 @@ void	philo_fill(t_table *table, t_philo *philo)
 		philo[i].time_eat = table->time_eat;
 		philo[i].time_sleep = table->time_sleep;
 		philo[i].time_without_eat = table->time_without_eat;
-		philo[i].time_start = table->time_table.tv_sec * 1000 + table->time_table.tv_usec / 1000;
+		philo[i].time_start = count_time(table->time_table);
 		philo[i].left_fork = &table->mutex_arr[i];
-		//malloc here (not freed)
-		philo[i].last_meal = (struct timeval *)malloc(sizeof(struct timeval));
-		//end
+		philo[i].last_meal = count_time(table->time_table);
 		if (i == 0)
 			philo[i].right_fork = &table->mutex_arr[table->am_philo - 1];
 		else
 			philo[i].right_fork = &table->mutex_arr[i - 1];
 		philo[i].stdo_mut = &table->mutex_arr[table->am_philo];
-
 	}
 }
 
@@ -67,18 +64,16 @@ int	thread_manager(t_table *table)
 	i = -1;
 	while (++i < table->am_philo)
 	{
-		if (pthread_create(&table->threads[i], NULL, &routine, (void *)&philo[i])
+		if (pthread_create(&table->threads[i], NULL, &routine, &philo[i])
 		&& !cleaner("philo", table, philo))
 			return (1);
 	}
 	while (1)
 	{
 		sleep(1);
-		//here
 		while (--i > -1)
-			printf("\nlast meal = %ld\n\n", philo[i].last_meal->tv_sec * 1000 + philo[i].last_meal->tv_usec / 1000);
+			printf("\nlast meal = %lld\n\n", philo[i].last_meal);
 		i = table->am_philo;
-		//here
 	}
 	while (--i >= 0)
 	{
