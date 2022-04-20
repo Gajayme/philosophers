@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/20 12:40:19 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/20 16:40:30 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,25 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = ((t_philo *)arg);
-	while (1)
+	while (!philo->tbl->is_d && ((philo->tbl->t_eat && philo->num_e < philo->tbl->eat_num)
+        || (!philo->tbl->eat_num)))
 	{
+		pthread_mutex_lock(philo->sto_m);
+		printf("%ld %d is thinking\n", timer(philo->tbl->t_str), philo->id_p);
+		pthread_mutex_unlock(philo->sto_m);
+		if (philo->tbl->is_d)
+			break ;
 		take_fork(philo);
+		if (philo->tbl->is_d)
+			break ;
 		eating(philo);
 		pthread_mutex_unlock(philo->l_frk);
 		pthread_mutex_unlock(philo->r_frk);
+		if (philo->tbl->is_d)
+			break ;
 		sleeping(philo);
 	}
+	//printf("philo %d is over\n", philo->id_p);
 	return (NULL);
 }
 
@@ -45,6 +56,7 @@ void	philo_fill(t_table *table, t_philo *philo)
 			philo[i].r_frk = &table->m_arr[i - 1];
 		philo[i].sto_m = &table->m_arr[table->a_phl];
 		philo[i].is_e = FALSE;
+		philo[i].num_e = 0;
 	}
 }
 
@@ -66,13 +78,15 @@ int	thread_manager(t_table *table)
 			&& !cleaner("philo", table, philo))
 			return (1);
 	}
-	while (1)
+	while (!table->is_d)
 	{
-	//	sleep(1);
-	//	printf("die check = %ld\n\n", timer(philo->lst_m));
-		while (--i > -1)
-			if (!philo->is_e && timer(philo->lst_m) > table->t_die)
-				printf("PHILO DIE!!\n");
+		while (--i > -1 && !table->is_d)
+			if (!philo->is_e && timer(philo->lst_m) > table->t_die
+				&& ((!table->eat_num) || (table->eat_num || philo->num_e < table->eat_num)))
+		{
+			printf("PHILO %d DIE!!\n", i + 1);
+			table->is_d = 1;
+		}
 
 		i = table->a_phl;
 	}

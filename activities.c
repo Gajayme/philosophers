@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:23:58 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/20 12:15:24 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/20 15:58:15 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	eating(t_philo *philo)
 	philo->is_e = TRUE;
 	waiter(philo->tbl->t_eat);
 	philo->is_e = FALSE;
+	philo->num_e += 1;
 	gettimeofday(&philo->lst_sm, NULL);
 	philo->lst_m = count_time(philo->lst_sm);
 }
@@ -59,8 +60,4 @@ void	sleeping(t_philo *philo)
 	printf("%ld %d is sleeping\n", timer(philo->tbl->t_str), philo->id_p);
 	pthread_mutex_unlock(philo->sto_m);
 	waiter(philo->tbl->t_slp);
-	//he must think in the beginning
-	pthread_mutex_lock(philo->sto_m);
-	printf("%ld %d is thinking\n", timer(philo->tbl->t_str), philo->id_p);
-	pthread_mutex_unlock(philo->sto_m);
 }

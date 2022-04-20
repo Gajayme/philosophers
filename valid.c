@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/20 12:34:47 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/20 16:41:42 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ int	valid(char **av, t_table *table)
 	table->is_d = 0;
 	table->t_arr = NULL;
 	table->m_arr = NULL;
-	//printf("a_ph = %d t_die = %d t_eat = %d t_slp = %d t_noeat = %d\n", table->a_phl, table->t_die, table->t_eat, table->t_slp, table->t_noeat);
 	return (0);
 }

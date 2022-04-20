@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/20 12:33:23 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/20 17:00:00 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ typedef struct s_table
 
 typedef struct s_philo
 {
+	t_table			*tbl;
 	int				id_p;
 	int				is_e;
-	t_table			*tbl;
+	int				num_e;
+	int
 	struct timeval	lst_sm;
 	long			lst_m;
 	pthread_mutex_t	*l_frk;
