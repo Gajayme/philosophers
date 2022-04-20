@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/17 21:27:05 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/20 12:34:47 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int	adder(char *arg, int flag, int *to_write)
 
 	if (up_isdigit(arg) != 0 && up_putstr_fd(arg, 2)
 		&& up_putstr_fd(" :invalid arg\n", 2))
-		return(1);
+		return (1);
 	num = up_atoi(arg);
 	if (((flag && (num > INT_MAX || num < 1))
 			|| (!flag && (num > INT_MAX || num < 1)))
 		&& !up_putstr_fd(arg, 2) && !up_putstr_fd(" :invalid arg\n", 2))
 		return (1);
 	*to_write = num;
-	return(0);
+	return (0);
 }
 
 int	valid(char **av, t_table *table)
@@ -33,20 +33,22 @@ int	valid(char **av, t_table *table)
 	int	i;
 
 	i = 1;
-	table->threads = NULL;
-	table->mutex_arr = NULL;
-	table->time_without_eat = 0;
-	if (adder(av[i++], 1, &table->am_philo))
+	table->t_arr = NULL;
+	table->m_arr = NULL;
+	table->eat_num = 0;
+	if (adder(av[i++], 1, &table->a_phl))
 		return (1);
-	if (adder(av[i++], 0, &table->time_die))
+	if (adder(av[i++], 0, &table->t_die))
 		return (1);
-	if (adder(av[i++], 0, &table->time_eat))
+	if (adder(av[i++], 0, &table->t_eat))
 		return (1);
-	if (adder(av[i++], 0, &table->time_sleep))
+	if (adder(av[i++], 0, &table->t_slp))
 		return (1);
-	if (av[i] && adder(av[i++], 0, &table->time_without_eat))
+	if (av[i] && adder(av[i++], 0, &table->eat_num))
 		return (1);
-	table->tb_dead = 0;
-	gettimeofday(&table->time_table, NULL);
+	table->is_d = 0;
+	table->t_arr = NULL;
+	table->m_arr = NULL;
+	//printf("a_ph = %d t_die = %d t_eat = %d t_slp = %d t_noeat = %d\n", table->a_phl, table->t_die, table->t_eat, table->t_slp, table->t_noeat);
 	return (0);
 }

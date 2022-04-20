@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:28:21 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/17 14:52:00 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/20 11:23:27 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	up_putstr_fd(char *s, int fd)
 	while (*s)
 	{
 		if (write(fd, s, 1))
-		s += 1;
+			s += 1;
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mem_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:26:14 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/18 12:18:56 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/20 12:07:07 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,18 @@ void	*up_calloc(size_t size, t_table *table, t_philo *philo)
 int	memory_manager(t_philo **philo, t_table *table)
 {
 	*philo = NULL;
-	*philo = (t_philo *)up_calloc(sizeof(t_philo) * table->am_philo, NULL, NULL);
+	*philo = (t_philo *)up_calloc(sizeof(t_philo) * table->a_phl, NULL, NULL);
 	if (!philo && !cleaner("philo", table, *philo))
 		return (1);
-	// + 2 mutex for stdout and is dead var
-	table->mutex_arr = (pthread_mutex_t *)up_calloc(sizeof(pthread_mutex_t)
-			* table->am_philo + 2, table, *philo);
-	if (!table->mutex_arr && !cleaner("philo", table, *philo))
-		return(1);
+	table->m_arr = (pthread_mutex_t *)up_calloc(sizeof(pthread_mutex_t)
+			* (table->a_phl + 2), table, *philo);
+	if (!table->m_arr && !cleaner("philo", table, *philo))
+		return (1);
 	if (mutex_init(table) && !cleaner("philo", table, *philo))
 		return (1);
-	table->threads = (pthread_t *)up_calloc(sizeof(pthread_t)
-			* table->am_philo, table, *philo);
-	if (!table->threads && !cleaner("philo", table, *philo))
-		return(1);
+	table->t_arr = (pthread_t *)up_calloc(sizeof(pthread_t)
+			* table->a_phl, table, *philo);
+	if (!table->t_arr && !cleaner("philo", table, *philo))
+		return (1);
 	return (0);
 }

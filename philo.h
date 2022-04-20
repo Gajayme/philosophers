@@ -6,12 +6,14 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/18 20:51:24 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/20 12:33:23 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+# define TRUE 1
+# define FALSE 0
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -29,42 +31,40 @@
 // USE COUNT TIME!!!!
 //should all time vars be LONG LONG
 
-typedef struct s_philo
-{
-	int				idx_philo;
-	int				*ph_dead;
-	int				time_die;
-	int				time_eat;
-	int				time_sleep;
-	int				time_without_eat;
-	long long		time_start;
-//	long long		time_now;
-	long long		last_meal;
-	//struct timeval	time_philo;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*stdo_mut;
-}		t_philo;
-
 typedef struct s_table
 {
-	int				am_philo;
-	int				tb_dead;
-	int				time_die;
-	int				time_eat;
-	int				time_sleep;
-	int				time_without_eat;
-	struct timeval	time_table;
-	pthread_mutex_t	*mutex_arr;
-	pthread_t		*threads;
+	int				a_phl;
+	int				is_d;
+	int				t_die;
+	int				t_eat;
+	int				t_slp;
+	int				eat_num;
+	long			t_str;
+	long			t_now;
+	struct timeval	t_tbl;
+	pthread_mutex_t	*m_arr;
+	pthread_t		*t_arr;
 }		t_table;
 
+typedef struct s_philo
+{
+	int				id_p;
+	int				is_e;
+	t_table			*tbl;
+	struct timeval	lst_sm;
+	long			lst_m;
+	pthread_mutex_t	*l_frk;
+	pthread_mutex_t	*r_frk;
+	pthread_mutex_t	*sto_m;
+}		t_philo;
+
 //main
-void	get_time(long long *time);
+void	*routine(void *arg);
 int		thread_manager(t_table *table);
 void	philo_fill(t_table *table, t_philo *philo);
+void	philo_fill(t_table *table, t_philo *philo);
 
-//__valid__
+//valid
 int		adder(char *arg, int flag, int *to_write);
 int		valid(char **av, t_table *table);
 

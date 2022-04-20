@@ -6,16 +6,15 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:09:15 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/18 20:20:29 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/20 12:27:56 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
 long	count_time(struct timeval time)
 {
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);	
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 long	timer(long start)
