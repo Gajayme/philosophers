@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 20:16:46 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/20 11:19:50 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/21 20:38:31 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	mutex_init(t_table *table)
 	i = -1;
 	while (++i < table->a_phl + 2)
 	{
+		
 		if (pthread_mutex_init(&table->m_arr[i], NULL) != 0)
 			return (1);
 	}

@@ -6,14 +6,12 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/20 17:00:00 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/21 20:29:25 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-# define TRUE 1
-# define FALSE 0
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,17 +22,16 @@
 # include <time.h>
 
 //TIPS:
-//1. detach thread if we can't join in
 //3. last meal mutex
-//4. must die
-//5. init vars to custom sleep in struct
-// USE COUNT TIME!!!!
+//5.
+//6. make 2 take forks
 //should all time vars be LONG LONG
 
 typedef struct s_table
 {
 	int				a_phl;
 	int				is_d;
+	int				is_cr;
 	int				t_die;
 	int				t_eat;
 	int				t_slp;
@@ -50,9 +47,10 @@ typedef struct s_philo
 {
 	t_table			*tbl;
 	int				id_p;
+	int				ev;
 	int				is_e;
 	int				num_e;
-	int
+	int				is_f;
 	struct timeval	lst_sm;
 	long			lst_m;
 	pthread_mutex_t	*l_frk;
@@ -62,6 +60,7 @@ typedef struct s_philo
 
 //main
 void	*routine(void *arg);
+void	life_circle(t_philo *philo, t_table *table);
 int		thread_manager(t_table *table);
 void	philo_fill(t_table *table, t_philo *philo);
 void	philo_fill(t_table *table, t_philo *philo);
@@ -91,8 +90,11 @@ void	up_bzero(void *s, size_t n);
 void	*up_calloc(size_t size, t_table *table, t_philo *philo);
 
 //activities
-int		take_fork(t_philo *philo);
+//int	take_fork(t_philo *philo);
+void	even_fork(t_philo *philo);
+void	odd_fork(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 
 #endif

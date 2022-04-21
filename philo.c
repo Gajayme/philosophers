@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/20 16:40:30 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/21 20:34:19 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,28 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = ((t_philo *)arg);
-	while (!philo->tbl->is_d && ((philo->tbl->t_eat && philo->num_e < philo->tbl->eat_num)
-        || (!philo->tbl->eat_num)))
+	philo->lst_m = philo->tbl->t_str;
+	while (!philo->tbl->is_cr)
+		continue ;
+	if (philo->ev)
+		usleep(philo->tbl->t_eat * 700);
+	while (!philo->tbl->is_d && (!philo->is_f))
 	{
-		pthread_mutex_lock(philo->sto_m);
-		printf("%ld %d is thinking\n", timer(philo->tbl->t_str), philo->id_p);
-		pthread_mutex_unlock(philo->sto_m);
+		thinking(philo);
 		if (philo->tbl->is_d)
 			break ;
-		take_fork(philo);
+		if (philo->id_p & 1)
+			odd_fork(philo);
+		else
+			even_fork(philo);
+		printf("HEREEEEE\n");
 		if (philo->tbl->is_d)
 			break ;
 		eating(philo);
-		pthread_mutex_unlock(philo->l_frk);
-		pthread_mutex_unlock(philo->r_frk);
 		if (philo->tbl->is_d)
 			break ;
 		sleeping(philo);
 	}
-	//printf("philo %d is over\n", philo->id_p);
 	return (NULL);
 }
 
@@ -55,8 +58,33 @@ void	philo_fill(t_table *table, t_philo *philo)
 		else
 			philo[i].r_frk = &table->m_arr[i - 1];
 		philo[i].sto_m = &table->m_arr[table->a_phl];
-		philo[i].is_e = FALSE;
+		philo[i].is_e = 0;
+		philo[i].is_f = 0;
 		philo[i].num_e = 0;
+		if (i & 1)
+			philo[i].ev = 1;
+		else
+			philo[i].ev = 0;
+	}
+}
+
+void	life_circle(t_philo *philo, t_table *table)
+{
+	int	i;
+
+	while (!table->is_d)
+	{
+		i = -1;
+		while (++i < table->a_phl && !table->is_d)
+			if (!philo[i].is_e && (timer(philo[i].lst_m) > table->t_die)
+				&& !philo[i].is_f)
+			{
+				table->is_d = 1;
+				pthread_mutex_lock(philo->sto_m);
+				printf("%ld %d died\n", timer(philo[i].lst_m), i + 1);
+				pthread_mutex_unlock(philo->sto_m);
+				return ;
+			}
 	}
 }
 
@@ -64,10 +92,7 @@ int	thread_manager(t_table *table)
 {
 	int		i;
 	t_philo	*philo;
-	//fix
-	gettimeofday(&table->t_tbl, NULL);
-	table->t_str = count_time(table->t_tbl);
-	//fix
+
 	if (memory_manager(&philo, table))
 		return (1);
 	philo_fill(table, philo);
@@ -78,18 +103,11 @@ int	thread_manager(t_table *table)
 			&& !cleaner("philo", table, philo))
 			return (1);
 	}
-	while (!table->is_d)
-	{
-		while (--i > -1 && !table->is_d)
-			if (!philo->is_e && timer(philo->lst_m) > table->t_die
-				&& ((!table->eat_num) || (table->eat_num || philo->num_e < table->eat_num)))
-		{
-			printf("PHILO %d DIE!!\n", i + 1);
-			table->is_d = 1;
-		}
-
-		i = table->a_phl;
-	}
+	gettimeofday(&table->t_tbl, NULL);
+	table->t_str = count_time(table->t_tbl);
+	table->is_cr = 1;
+	life_circle(philo, table);
+	printf("here i = %d\n", i);
 	while (--i >= 0)
 	{
 		if (pthread_join(table->t_arr[i], NULL)
