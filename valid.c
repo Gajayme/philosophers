@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/21 18:15:28 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:31:53 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	valid(char **av, t_table *table)
 		return (1);
 	table->is_cr = 0;
 	table->is_d = 0;
+	table->fed_ph = 0;
 	table->t_arr = NULL;
 	table->m_arr = NULL;
 	return (0);

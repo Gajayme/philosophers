@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:26:14 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/20 12:07:07 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:03:29 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	memory_manager(t_philo **philo, t_table *table)
 	if (!philo && !cleaner("philo", table, *philo))
 		return (1);
 	table->m_arr = (pthread_mutex_t *)up_calloc(sizeof(pthread_mutex_t)
-			* (table->a_phl + 2), table, *philo);
+			* (table->a_phl + 1), table, *philo);
 	if (!table->m_arr && !cleaner("philo", table, *philo))
 		return (1);
 	if (mutex_init(table) && !cleaner("philo", table, *philo))

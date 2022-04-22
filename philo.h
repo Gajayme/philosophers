@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/21 20:29:25 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:32:01 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef struct s_table
 	int				t_eat;
 	int				t_slp;
 	int				eat_num;
-	long			t_str;
+	int				fed_ph;
+	long			t_strt;
 	long			t_now;
 	struct timeval	t_tbl;
 	pthread_mutex_t	*m_arr;
