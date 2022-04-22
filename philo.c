@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/22 12:14:07 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/22 20:51:44 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,19 +110,11 @@ int	thread_manager(t_table *table)
 	gettimeofday(&table->t_tbl, NULL);
 	table->t_strt = count_time(table->t_tbl);
 	life_circle(philo, table);
-	//if (table->is_d)
 	pthread_mutex_unlock(philo->sto_m);
-	printf("hereeeeee\n");
-	if (table->a_phl != 1)
-	{
-		while (--i >= 0)
-		{
-			if (pthread_join(table->t_arr[i], NULL)
-				&& !cleaner("philo", table, philo))
-				return (1);
-		}
-	}
-	cleaner(NULL, table, philo);
+	if (table->a_phl == 1 && !cleaner(NULL, table, philo))
+		return (0);
+	if (joiner(philo, table))
+		return (1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 20:16:46 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/22 11:50:51 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/22 20:47:13 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,21 @@ int	mutex_init(t_table *table)
 		if (pthread_mutex_init(&table->m_arr[i], NULL) != 0)
 			return (1);
 	}
+	return (0);
+}
+
+int	joiner(t_philo *philo, t_table *table)
+{
+	int	i;
+
+	i = -1;
+	while (++i < table->a_phl)
+	{
+		if (pthread_join(table->t_arr[i], NULL)
+			&& !cleaner("philo", table, philo))
+			return (1);
+	}
+	cleaner(NULL, table, philo);
 	return (0);
 }
 

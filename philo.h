@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/22 11:32:01 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/22 20:44:13 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ long	up_atoi(const char *str);
 int		up_putstr_fd(char *s, int fd);
 
 //utils
+int		joiner(t_philo *philo, t_table *table);
 void	mutex_dest(t_table *table);
 int		mutex_init(t_table *table);
 int		cleaner(char *pr_name, t_table *table, t_philo *philo);
