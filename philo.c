@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/22 20:51:44 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/24 20:58:40 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,16 @@ void	life_circle(t_philo *philo, t_table *table)
 		i = -1;
 		while (++i < table->a_phl && !table->is_d)
 		{
-			pthread_mutex_lock(philo->sto_m);
 			if (!philo[i].is_e && (timer(philo[i].lst_m) > table->t_die)
 				&& !philo[i].is_f && philo->tbl->fed_ph < philo->tbl->a_phl)
 			{
+				pthread_mutex_lock(philo->sto_m);
 				table->is_d = 1;
-				printf("%ld %d died\n", timer(philo[i].lst_m), i + 1);
+				printf("%ld %d died\n", timer(table->t_strt), i + 1);
+				//pthread_mutex_unlock(philo->sto_m);
 				return ;
 			}
-			pthread_mutex_unlock(philo->sto_m);
+			//usleep(10);
 		}
 	}
 }
