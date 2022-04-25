@@ -6,7 +6,7 @@
 /*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/24 20:58:40 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/25 12:00:30 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	*routine(void *arg)
 	philo = ((t_philo *)arg);
 	while (!philo->tbl->is_cr)
 		continue ;
-	philo->lst_m = philo->tbl->t_strt;
 	if (philo->ev)
 		usleep(philo->tbl->t_eat * 700);
 	while (!philo->tbl->is_d && (!philo->is_f))
@@ -75,18 +74,17 @@ void	life_circle(t_philo *philo, t_table *table)
 	while (!table->is_d && philo->tbl->fed_ph < philo->tbl->a_phl)
 	{
 		i = -1;
-		while (++i < table->a_phl && !table->is_d)
+		while ((++i < table->a_phl) && !table->is_d)
 		{
 			if (!philo[i].is_e && (timer(philo[i].lst_m) > table->t_die)
-				&& !philo[i].is_f && philo->tbl->fed_ph < philo->tbl->a_phl)
+				&& !philo[i].is_f && (philo->tbl->fed_ph < philo->tbl->a_phl))
 			{
 				pthread_mutex_lock(philo->sto_m);
 				table->is_d = 1;
 				printf("%ld %d died\n", timer(table->t_strt), i + 1);
-				//pthread_mutex_unlock(philo->sto_m);
 				return ;
 			}
-			//usleep(10);
+			usleep(1);
 		}
 	}
 }
@@ -98,8 +96,10 @@ int	thread_manager(t_table *table)
 
 	if (memory_manager(&philo, table))
 		return (1);
-	philo_fill(table, philo);
 	i = -1;
+	gettimeofday(&table->t_tbl, NULL);
+	table->t_strt = count_time(table->t_tbl);
+	philo_fill(table, philo);
 	while (++i < table->a_phl)
 	{
 		if (pthread_create(&table->t_arr[i], NULL, &routine, &philo[i])
@@ -108,8 +108,6 @@ int	thread_manager(t_table *table)
 		if (table->a_phl == 1)
 			pthread_detach(table->t_arr[i]);
 	}
-	gettimeofday(&table->t_tbl, NULL);
-	table->t_strt = count_time(table->t_tbl);
 	life_circle(philo, table);
 	pthread_mutex_unlock(philo->sto_m);
 	if (table->a_phl == 1 && !cleaner(NULL, table, philo))
