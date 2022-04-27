@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/22 20:44:13 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/27 11:01:33 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,13 @@
 # include <time.h>
 
 //TIPS:
-//3. last meal mutex
-//5.
-//6. make 2 take forks
-//should all time vars be LONG LONG
+//2. Do i need eating flag
+//3. Int activities
 
 typedef struct s_table
 {
 	int				a_phl;
 	int				is_d;
-	int				is_cr;
 	int				t_die;
 	int				t_eat;
 	int				t_slp;
@@ -92,11 +89,9 @@ void	up_bzero(void *s, size_t n);
 void	*up_calloc(size_t size, t_table *table, t_philo *philo);
 
 //activities
-//int	take_fork(t_philo *philo);
-void	even_fork(t_philo *philo);
-void	odd_fork(t_philo *philo);
-void	eating(t_philo *philo);
-void	sleeping(t_philo *philo);
-void	thinking(t_philo *philo);
+int		even_fork(t_philo *philo);
+int		odd_fork(t_philo *philo);
+int		eating(t_philo *philo);
+int		sleeping(t_philo *philo);
 
 #endif

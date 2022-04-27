@@ -1,10 +1,10 @@
 NAME	= philo
 
-CC		= gcc -Wall -Wextra -Werror -MMD
+CC		= gcc -Wall -Wextra -Werror -MMD -fsanitize=thread
 
 E_FLAGS	= -pthread
-#-fsanitize=thread
 
+#MAKEFILE AS A DEPENDENCE
 SRC		= philo.c valid.c lib_utils.c \
 			utils.c activities.c time_utils.c\
 			mem_utils.c \
@@ -19,10 +19,10 @@ OBJ		= 	$(patsubst %.c,%.o,$(SRC))
 
 all: 		$(NAME)
 
-$(NAME):	$(OBJ) $(INC)
+$(NAME):	$(OBJ) MAKEFILE $(INC)
 			$(CC) $(OBJ) $(E_FLAGS) -o $(NAME)
 
-%.o : %.c 	$(INC)
+%.o : %.c 	$(INC) 
 			$(CC) -c $< -o $@
 
 #include $(wildcard $(D_FILES))

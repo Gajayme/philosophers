@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/25 11:57:09 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/27 10:52:50 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	adder(char *arg, int flag, int *to_write)
 {
 	int	num;
 
-	if (up_isdigit(arg) != 0 && up_putstr_fd(arg, 2)
-		&& up_putstr_fd(" :invalid arg\n", 2))
+	if (up_isdigit(arg) != 0 && !up_putstr_fd(arg, 2)
+		&& !up_putstr_fd(" :invalid arg\n", 2))
 		return (1);
 	num = up_atoi(arg);
 	if (((flag && (num > INT_MAX || num < 1))
@@ -46,7 +46,6 @@ int	valid(char **av, t_table *table)
 		return (1);
 	if (av[i] && adder(av[i++], 0, &table->eat_num))
 		return (1);
-	table->is_cr = 0;
 	table->is_d = 0;
 	table->fed_ph = 0;
 	table->t_arr = NULL;

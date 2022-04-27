@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 20:16:46 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/22 20:47:13 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/27 11:04:45 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ void	mutex_dest(t_table *table)
 	int	i;
 
 	i = -1;
-	while (&table->m_arr[++i] != NULL && i < table->a_phl)
+	while (&table->m_arr[++i] != NULL && i < table->a_phl + 1)
+	{
 		pthread_mutex_destroy(&table->m_arr[i]);
+	}
 }
 
 int	cleaner(char *pr_name, t_table *table, t_philo *philo)

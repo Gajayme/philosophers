@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/25 12:00:30 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/27 11:05:41 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,22 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = ((t_philo *)arg);
-	while (!philo->tbl->is_cr)
-		continue ;
 	if (philo->ev)
 		usleep(philo->tbl->t_eat * 700);
-	while (!philo->tbl->is_d && (!philo->is_f))
+	while (!philo->is_f)
 	{
-		if (philo->tbl->is_d)
+		if (philo->ev && even_fork(philo))
 			break ;
-		if (philo->ev)
-			even_fork(philo);
-		else
-			odd_fork(philo);
-		if (philo->tbl->is_d)
+		if (!philo->ev && odd_fork(philo))
 			break ;
-		eating(philo);
-		if (philo->tbl->is_d)
+		if (eating(philo))
 			break ;
-		sleeping(philo);
+		if (sleeping(philo))
+			break ;
 	}
+	pthread_mutex_lock(philo->sto_m);
 	philo->tbl->fed_ph += 1;
+	pthread_mutex_unlock(philo->sto_m);
 	return (NULL);
 }
 
@@ -70,23 +66,26 @@ void	life_circle(t_philo *philo, t_table *table)
 {
 	int	i;
 
-	table->is_cr = 1;
-	while (!table->is_d && philo->tbl->fed_ph < philo->tbl->a_phl)
+	while (1)
 	{
 		i = -1;
-		while ((++i < table->a_phl) && !table->is_d)
+		while (++i < table->a_phl)
 		{
-			if (!philo[i].is_e && (timer(philo[i].lst_m) > table->t_die)
-				&& !philo[i].is_f && (philo->tbl->fed_ph < philo->tbl->a_phl))
+			pthread_mutex_lock(&table->m_arr[table->a_phl]);
+			if (!philo[i].is_e && !philo[i].is_f
+				&& (timer(philo[i].lst_m) > table->t_die))
 			{
-				pthread_mutex_lock(philo->sto_m);
 				table->is_d = 1;
 				printf("%ld %d died\n", timer(table->t_strt), i + 1);
+				pthread_mutex_unlock(&table->m_arr[table->a_phl]);
 				return ;
 			}
-			usleep(1);
+			else if (philo->tbl->fed_ph == philo->tbl->a_phl)
+				return ;
+			pthread_mutex_unlock(&table->m_arr[table->a_phl]);
 		}
 	}
+	pthread_mutex_unlock(&table->m_arr[table->a_phl]);
 }
 
 int	thread_manager(t_table *table)
@@ -109,7 +108,6 @@ int	thread_manager(t_table *table)
 			pthread_detach(table->t_arr[i]);
 	}
 	life_circle(philo, table);
-	pthread_mutex_unlock(philo->sto_m);
 	if (table->a_phl == 1 && !cleaner(NULL, table, philo))
 		return (0);
 	if (joiner(philo, table))

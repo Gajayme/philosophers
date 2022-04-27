@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:28:21 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/22 10:08:56 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/27 10:51:15 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	up_isdigit(char *arg)
 {
 	while (*arg)
 	{
-		if (*arg > 47 || *arg < 58)
+		if (*arg > 47 && *arg < 58)
 			arg ++;
 		else
 			return (1);
