@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/27 11:01:33 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/29 20:05:43 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_philo
 void	*routine(void *arg);
 void	life_circle(t_philo *philo, t_table *table);
 int		thread_manager(t_table *table);
-void	philo_fill(t_table *table, t_philo *philo);
 void	philo_fill(t_table *table, t_philo *philo);
 
 //valid

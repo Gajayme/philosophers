@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/27 11:05:41 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/29 00:25:30 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	life_circle(t_philo *philo, t_table *table)
 				return ;
 			pthread_mutex_unlock(&table->m_arr[table->a_phl]);
 		}
+		usleep(10);
 	}
 	pthread_mutex_unlock(&table->m_arr[table->a_phl]);
 }

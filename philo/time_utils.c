@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:09:15 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/23 00:23:35 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/04/29 00:28:50 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	waiter(int time)
 	while (((now.tv_sec * 1000 - start.tv_sec * 1000)
 			+ (now.tv_usec / 1000 - start.tv_usec / 1000)) < time)
 	{
-		usleep(1);
+		usleep(100);
 		gettimeofday(&now, NULL);
 	}
 }

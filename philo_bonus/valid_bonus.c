@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid.c                                            :+:      :+:    :+:   */
+/*   valid_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/27 10:52:50 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/29 20:53:53 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	adder(char *arg, int flag, int *to_write)
 {
@@ -28,13 +28,17 @@ int	adder(char *arg, int flag, int *to_write)
 	return (0);
 }
 
+void	sem_prepare(t_table *table)
+{
+	table->sem = sem_open ("fork_Sem", O_CREAT | O_EXCL, 0644, table->a_phl);
+	printf("inited\n");
+}
+
 int	valid(char **av, t_table *table)
 {
 	int	i;
 
 	i = 1;
-	table->t_arr = NULL;
-	table->m_arr = NULL;
 	table->eat_num = 0;
 	if (adder(av[i++], 1, &table->a_phl))
 		return (1);
@@ -48,7 +52,10 @@ int	valid(char **av, t_table *table)
 		return (1);
 	table->is_d = 0;
 	table->fed_ph = 0;
-	table->t_arr = NULL;
-	table->m_arr = NULL;
+	sem_prepare(table);
+	table->t_arr = (pthread_t *)malloc(sizeof(pthread_t) * table->a_phl);
+	if (!table->t_arr)
+		return (1);
+	memset(table->t_arr, 0, sizeof(pthread_t) * table->a_phl);
 	return (0);
 }
