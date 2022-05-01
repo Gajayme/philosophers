@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/29 20:53:53 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/04/30 23:31:54 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,34 +28,51 @@ int	adder(char *arg, int flag, int *to_write)
 	return (0);
 }
 
-void	sem_prepare(t_table *table)
+int	sem_prepare(t_philo *philo)
 {
-	table->sem = sem_open ("fork_Sem", O_CREAT | O_EXCL, 0644, table->a_phl);
-	printf("inited\n");
+	philo->sem_f = sem_open ("sem_f", O_CREAT, 0644, philo->a_phl);
+	if (philo->sem_f == SEM_FAILED)
+		return (1);
+	sem_unlink("sem_f");
+	philo->sem_p = sem_open ("sem_p", O_CREAT, 0644, 1);
+	if (philo->sem_p == SEM_FAILED)
+		return (1);
+	sem_unlink("sem_p");
+	//example
+	//philo->sem_d = sem_open ("sem_d", O_CREAT | O_EXCL, 0644, 1);
+	philo->sem_d = sem_open ("sem_d", O_CREAT, 0644, 0);
+	if (philo->sem_d == SEM_FAILED)
+		return (1);
+	sem_unlink("sem_d");
+	//printf("sem created\n");
+	return (0);
 }
 
-int	valid(char **av, t_table *table)
+int	valid(char **av, t_philo *philo)
 {
 	int	i;
 
 	i = 1;
-	table->eat_num = 0;
-	if (adder(av[i++], 1, &table->a_phl))
+	philo->eat_num = 0;
+	philo->fed_ph = 0;
+	//philo->id_arr = NULL;
+	//philo->t_arr = NULL;
+	if (adder(av[i++], 1, &philo->a_phl))
 		return (1);
-	if (adder(av[i++], 0, &table->t_die))
+	if (adder(av[i++], 0, &philo->t_die))
 		return (1);
-	if (adder(av[i++], 0, &table->t_eat))
+	if (adder(av[i++], 0, &philo->t_eat))
 		return (1);
-	if (adder(av[i++], 0, &table->t_slp))
+	if (adder(av[i++], 0, &philo->t_slp))
 		return (1);
-	if (av[i] && adder(av[i++], 0, &table->eat_num))
+	if (av[i] && adder(av[i++], 0, &philo->eat_num))
 		return (1);
-	table->is_d = 0;
-	table->fed_ph = 0;
-	sem_prepare(table);
-	table->t_arr = (pthread_t *)malloc(sizeof(pthread_t) * table->a_phl);
-	if (!table->t_arr)
+	if (sem_prepare(philo))
 		return (1);
-	memset(table->t_arr, 0, sizeof(pthread_t) * table->a_phl);
+	philo->id_arr = (int *)malloc(philo->a_phl);
+	philo->t_arr = (pthread_t *)malloc(sizeof(pthread_t) * philo->a_phl);
+	if (!philo->id_arr || !philo->t_arr)
+		cleaner ("philo_bonus", philo);
+	memset(philo->t_arr, 0, sizeof(pthread_t) * philo->a_phl);
 	return (0);
 }
