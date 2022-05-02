@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/30 23:45:10 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/02 14:29:19 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ void	philo_manager(t_philo *philo)
 		sem_wait(philo->sem_p);
 		exit(1);
 	}
-
-	printf("in philo %d\n", philo->n_phl);
-	//sleep(1);
+	life_circle(philo);
+	if (pthread_join(monitor, NULL))
+	{
+		sem_post(philo->sem_d);
+		sem_wait(philo->sem_p);
+		exit(1);
+	}
 	exit(0);
 }
 
@@ -33,6 +37,9 @@ void	proc_manager(t_philo *philo)
 	int	i;
 
 	i = -1;
+	philo->t_strt = count_time(&philo->t_philo);
+	//philo->t_lmeal = philo->t_strt;
+	//printf("%ld %ld", philo->t_strt, philo->t_lmeal);
 	while(++i < philo->a_phl)
 	{
 		philo->n_phl = i + 1;
@@ -44,13 +51,9 @@ void	proc_manager(t_philo *philo)
 			while(i-- >= 0)
 				kill(philo->id_arr[i], SIGKILL);
 			cleaner("philo_bonus", philo);
-
 		}
 	}
-	//sleep(1);
-	//printf("finished\n");
 	//exit(0);
-
 }
 
 int	main(int ac, char **av)
@@ -62,6 +65,7 @@ int	main(int ac, char **av)
 	if (valid(av, &philo))
 		return (1);
 	proc_manager(&philo);
+	// here we need two threads to check finish
 	sem_wait(philo.sem_d);
 	printf("ending\n");
 	return (0);

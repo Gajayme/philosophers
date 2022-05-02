@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/30 23:30:09 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/02 14:19:22 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ typedef struct s_philo
 	int				t_slp;
 	int				a_phl;
 	int				eat_num;
-	int				fed_ph;
+	int				is_fed;
+	//int			is_ded;
+	int				is_eat;
 	int				*id_arr;
 	long			t_strt;
-	struct timeval	t_tbl;
+	long			t_lmeal;
+	struct timeval	t_philo;
+	sem_t			*sem_fed;
 	sem_t			*sem_f;
 	sem_t			*sem_p;
 	sem_t			*sem_d;
@@ -58,7 +62,14 @@ int		up_putstr_fd(char *s, int fd);
 //utils
 void	ft_semcloser(t_philo *philo);
 int		cleaner(char *pr_name, t_philo *philo);
+long	count_time(struct timeval *time);
+long	timer(long start);
+void	waiter(int time);
 
 //activ
+void	philo_manager(t_philo *philo);
+void	life_circle(t_philo *philo);
+void	eating(t_philo *philo);
 void	*philo_monitor();
+
 #endif
