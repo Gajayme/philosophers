@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:28:21 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/29 00:29:08 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:36:49 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,13 @@ int	up_putstr_fd(char *s, int fd)
 			s += 1;
 	}
 	return (0);
+}
+
+void	killing(t_philo *philo)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philo->a_phl)
+		kill(philo->id_arr[i], SIGKILL);
 }

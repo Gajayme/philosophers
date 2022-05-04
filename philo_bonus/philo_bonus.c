@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/05/04 15:11:11 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:35:20 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,19 @@ void	proc_manager(t_philo *philo)
 	gettimeofday(&philo->t_philo, NULL);
 	philo->t_strt = count_time(philo->t_philo);
 	philo->t_lmeal = philo->t_strt;
-	while(++i < philo->a_phl)
+	while (++i < philo->a_phl)
 	{
 		philo->n_phl = i + 1;
 		philo->id_arr[i] = fork();
 		if (philo->id_arr[i] == 0)
 			philo_manager(philo);
-		else if(philo->id_arr[i] == -1)
+		else if (philo->id_arr[i] == -1)
 		{
-			while(i-- >= 0)
+			while (i-- >= 0)
 				kill(philo->id_arr[i], SIGKILL);
 			cleaner("philo_bonus", philo);
 		}
 	}
-}
-
-void killing(t_philo *philo)
-{
-	int	i;
-
-	i = -1;
-	while (++i < philo->a_phl)
-		kill(philo->id_arr[i], SIGKILL);
 }
 
 void	*fed_monitor(void *arg)
@@ -69,7 +60,7 @@ void	*fed_monitor(void *arg)
 	while (++i < philo->a_phl)
 		sem_wait(philo->sem_fed);
 	sem_post(philo->sem_d);
-	return(NULL);
+	return (NULL);
 }
 
 void	main_monitoring(t_philo *philo)
@@ -84,7 +75,6 @@ void	main_monitoring(t_philo *philo)
 		return ;
 	}
 	pthread_detach(main_mon);
-
 }
 
 int	main(int ac, char **av)

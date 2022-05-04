@@ -6,12 +6,12 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/05/04 15:11:26 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:38:13 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -23,7 +23,7 @@
 # include <signal.h>
 # include <semaphore.h>
 
-//we have only philo struct that will be divided between processes
+//need to check funcks in header
 typedef struct s_philo
 {
 	int				n_phl;
@@ -46,11 +46,14 @@ typedef struct s_philo
 	pthread_t		*t_arr;
 }		t_philo;
 
-
 //main
-
+void	philo_manager(t_philo *philo);
+void	proc_manager(t_philo *philo);
+void	*fed_monitor(void *arg);
+void	main_monitoring(t_philo *philo);
 
 //valid
+int		sem_prepare(t_philo *philo);
 int		adder(char *arg, int flag, int *to_write);
 int		valid(char **av, t_philo *philo);
 
@@ -58,6 +61,7 @@ int		valid(char **av, t_philo *philo);
 int		up_isdigit(char *arg);
 long	up_atoi(const char *str);
 int		up_putstr_fd(char *s, int fd);
+void	killing(t_philo *philo);
 
 //utils
 void	ft_semcloser(t_philo *philo);
@@ -70,6 +74,6 @@ void	waiter(int time);
 void	philo_manager(t_philo *philo);
 void	life_circle(t_philo *philo);
 void	eating(t_philo *philo);
-void	*philo_monitor();
+void	*philo_monitor(void *arg);
 
 #endif

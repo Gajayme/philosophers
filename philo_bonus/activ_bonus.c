@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 23:13:51 by lyubov            #+#    #+#             */
-/*   Updated: 2022/05/04 15:22:47 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:35:05 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	*philo_monitor(void *arg)
 		{
 			sem_post(philo->sem_fed);
 			sem_post(philo->sem_p);
-			break;
+			break ;
 		}
 		else if (!philo->is_eat && (timer(philo->t_lmeal) > philo->t_die))
 		{
-			printf("%ld %d dead\n", timer(philo->t_strt),philo->n_phl);
+			printf("%ld %d dead\n", timer(philo->t_strt), philo->n_phl);
 			sem_post(philo->sem_d);
-			break;
+			break ;
 		}
 		sem_post(philo->sem_p);
 	}
@@ -42,7 +42,7 @@ void	eating(t_philo *philo)
 {
 	sem_wait(philo->sem_f);
 	sem_wait(philo->sem_p);
-	printf("%ld %d taken a fork\n", timer(philo->t_strt),philo->n_phl);
+	printf("%ld %d taken a fork\n", timer(philo->t_strt), philo->n_phl);
 	sem_post(philo->sem_p);
 	sem_wait(philo->sem_f);
 	sem_wait(philo->sem_p);
@@ -77,7 +77,7 @@ void	sleeping(t_philo *philo)
 
 void	life_circle(t_philo *philo)
 {
-	if(philo->n_phl % 2)
+	if (philo->n_phl % 2)
 		usleep(philo->t_eat * 700);
 	while (1)
 	{
