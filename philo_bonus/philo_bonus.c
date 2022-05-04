@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/05/02 14:29:19 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:11:11 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,15 @@ void	philo_manager(t_philo *philo)
 {
 	pthread_t	monitor;
 
-	if (pthread_create(&monitor, NULL, philo_monitor, NULL))
+	if (pthread_create(&monitor, NULL, philo_monitor, philo))
 	{
-		sem_post(philo->sem_d);
 		sem_wait(philo->sem_p);
-		exit(1);
+		perror("philo_bonus");
+		sem_post(philo->sem_d);
+		exit (1);
 	}
+	pthread_detach(monitor);
 	life_circle(philo);
-	if (pthread_join(monitor, NULL))
-	{
-		sem_post(philo->sem_d);
-		sem_wait(philo->sem_p);
-		exit(1);
-	}
-	exit(0);
 }
 
 void	proc_manager(t_philo *philo)
@@ -37,9 +32,9 @@ void	proc_manager(t_philo *philo)
 	int	i;
 
 	i = -1;
-	philo->t_strt = count_time(&philo->t_philo);
-	//philo->t_lmeal = philo->t_strt;
-	//printf("%ld %ld", philo->t_strt, philo->t_lmeal);
+	gettimeofday(&philo->t_philo, NULL);
+	philo->t_strt = count_time(philo->t_philo);
+	philo->t_lmeal = philo->t_strt;
 	while(++i < philo->a_phl)
 	{
 		philo->n_phl = i + 1;
@@ -53,7 +48,43 @@ void	proc_manager(t_philo *philo)
 			cleaner("philo_bonus", philo);
 		}
 	}
-	//exit(0);
+}
+
+void killing(t_philo *philo)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philo->a_phl)
+		kill(philo->id_arr[i], SIGKILL);
+}
+
+void	*fed_monitor(void *arg)
+{
+	int		i;
+	t_philo	*philo;
+
+	philo = ((t_philo *)arg);
+	i = -1;
+	while (++i < philo->a_phl)
+		sem_wait(philo->sem_fed);
+	sem_post(philo->sem_d);
+	return(NULL);
+}
+
+void	main_monitoring(t_philo *philo)
+{
+	pthread_t	main_mon;
+
+	if (pthread_create(&main_mon, NULL, fed_monitor, philo))
+	{
+		sem_wait(philo->sem_p);
+		perror("philo_bonus");
+		sem_post(philo->sem_d);
+		return ;
+	}
+	pthread_detach(main_mon);
+
 }
 
 int	main(int ac, char **av)
@@ -65,8 +96,9 @@ int	main(int ac, char **av)
 	if (valid(av, &philo))
 		return (1);
 	proc_manager(&philo);
-	// here we need two threads to check finish
+	main_monitoring(&philo);
 	sem_wait(philo.sem_d);
-	printf("ending\n");
+	killing(&philo);
+	cleaner(NULL, &philo);
 	return (0);
 }

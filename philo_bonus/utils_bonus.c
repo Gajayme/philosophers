@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 20:44:15 by lyubov            #+#    #+#             */
-/*   Updated: 2022/05/02 14:12:56 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:10:54 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 void	ft_semclose(t_philo *philo)
 {
+	int	i;
+
+	i = -1;
 	sem_close(philo->sem_f);
 	sem_close(philo->sem_p);
 	sem_close(philo->sem_d);
+	while (++i < philo->a_phl)
+		sem_post(philo->sem_fed);
+	sem_close(philo->sem_fed);
 }
 
 int	cleaner(char *pr_name, t_philo *philo)
@@ -30,16 +36,16 @@ int	cleaner(char *pr_name, t_philo *philo)
 			free (philo->id_arr);
 	}
 	if (pr_name)
+	{
 		perror(pr_name);
-	exit (1);
+		exit (1);
+	}
+	exit (0);
 }
 
-//new
-
-long	count_time(struct timeval *time)
+long	count_time(struct timeval time)
 {
-	gettimeofday(time, NULL);
-	return (time->tv_sec * 1000 + time->tv_usec / 1000);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 long	timer(long start)
@@ -58,9 +64,7 @@ void	waiter(int time)
 	struct timeval	now;
 
 	gettimeofday(&start, NULL);
-	printf("%d\n", time * 1000);
-	usleep((time * 950) / 1000);
-	printf("here\n");
+	usleep (time * 950);
 	gettimeofday(&now, NULL);
 	while (((now.tv_sec * 1000 - start.tv_sec * 1000)
 			+ (now.tv_usec / 1000 - start.tv_usec / 1000)) < time)

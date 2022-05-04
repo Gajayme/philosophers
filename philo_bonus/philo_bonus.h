@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/05/02 14:19:22 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:11:26 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ typedef struct s_philo
 	int				a_phl;
 	int				eat_num;
 	int				is_fed;
-	//int			is_ded;
 	int				is_eat;
 	int				*id_arr;
 	long			t_strt;
 	long			t_lmeal;
+	struct timeval	s_lmeal;
 	struct timeval	t_philo;
 	sem_t			*sem_fed;
 	sem_t			*sem_f;
@@ -62,7 +62,7 @@ int		up_putstr_fd(char *s, int fd);
 //utils
 void	ft_semcloser(t_philo *philo);
 int		cleaner(char *pr_name, t_philo *philo);
-long	count_time(struct timeval *time);
+long	count_time(struct timeval time);
 long	timer(long start);
 void	waiter(int time);
 

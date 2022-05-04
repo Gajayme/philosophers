@@ -6,7 +6,7 @@
 /*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/05/02 14:01:46 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:24:10 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ int	sem_prepare(t_philo *philo)
 	if (philo->sem_p == SEM_FAILED)
 		return (1);
 	sem_unlink("sem_p");
-	//example
-	//philo->sem_d = sem_open ("sem_d", O_CREAT | O_EXCL, 0644, 1);
 	philo->sem_d = sem_open ("sem_d", O_CREAT, 0644, 0);
 	if (philo->sem_d == SEM_FAILED)
 		return (1);
 	sem_unlink("sem_d");
-	philo->sem_d = sem_open ("sem_fed", O_CREAT, 0644, 0);
+	philo->sem_fed = sem_open ("sem_fed", O_CREAT, 0644, 0);
 	if (philo->sem_fed == SEM_FAILED)
 		return (1);
 	sem_unlink("sem_fed");
@@ -59,8 +57,6 @@ int	valid(char **av, t_philo *philo)
 	philo->eat_num = -1;
 	philo->is_fed = 0;
 	philo->is_eat = 0;
-	//do i really need is_dead
-	//philo->is_ded = 0;
 	if (adder(av[i++], 1, &philo->a_phl))
 		return (1);
 	if (adder(av[i++], 0, &philo->t_die))
@@ -78,6 +74,5 @@ int	valid(char **av, t_philo *philo)
 	if (!philo->id_arr || !philo->t_arr)
 		cleaner ("philo_bonus", philo);
 	memset(philo->t_arr, 0, sizeof(pthread_t) * philo->a_phl);
-	//printf("time die %d\ntime eat %d\ntime sleep%d\n", philo->t_die, philo->t_eat, philo->t_slp);
 	return (0);
 }
