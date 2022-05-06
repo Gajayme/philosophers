@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   activ_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 23:13:51 by lyubov            #+#    #+#             */
-/*   Updated: 2022/05/04 15:35:05 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/05 19:59:54 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	eating(t_philo *philo)
 	printf("%ld %d taken a fork\n", timer(philo->t_strt), philo->n_phl);
 	sem_post(philo->sem_p);
 	sem_wait(philo->sem_p);
+	printf("%ld %d eating\n", timer(philo->t_strt), philo->n_phl);
 	gettimeofday(&philo->s_lmeal, NULL);
 	philo->t_lmeal = count_time(philo->s_lmeal);
 	philo->is_eat = 1;
-	printf("%ld %d eating\n", timer(philo->t_strt), philo->n_phl);
 	sem_post(philo->sem_p);
 	waiter(philo->t_eat);
 	sem_wait(philo->sem_p);
@@ -68,8 +68,6 @@ void	sleeping(t_philo *philo)
 	printf("%ld %d sleeping\n", timer(philo->t_strt), philo->n_phl);
 	sem_post(philo->sem_p);
 	waiter(philo->t_slp);
-	sem_post(philo->sem_f);
-	sem_post(philo->sem_f);
 	sem_wait(philo->sem_p);
 	printf("%ld %d thinking\n", timer(philo->t_strt), philo->n_phl);
 	sem_post(philo->sem_p);
@@ -77,7 +75,7 @@ void	sleeping(t_philo *philo)
 
 void	life_circle(t_philo *philo)
 {
-	if (philo->n_phl % 2)
+	if (!philo->n_phl % 2)
 		usleep(philo->t_eat * 700);
 	while (1)
 	{

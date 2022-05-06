@@ -1,6 +1,6 @@
 NAME	= philo_bonus
 
-CC		= gcc -Wall -Wextra -Werror
+CC		= gcc -Wall -Wextra -Werror -pthread
 
 T_FLAG	= -fsanitize=thread
 
@@ -16,7 +16,7 @@ OBJ		= 	$(SRC:.c=.o)
 
 all: 		$(NAME)
 
-$(NAME):	$(OBJ) MAKEFILE $(INC)
+$(NAME):	$(OBJ) $(INC)
 			$(CC) $(OBJ) $(E_FLAG) -o $(NAME)
 
 %.o : %.c 	$(INC)

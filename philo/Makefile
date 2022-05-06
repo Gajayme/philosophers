@@ -1,6 +1,6 @@
 NAME	= philo
 
-CC		= gcc -Wall -Wextra -Werror
+CC		= gcc -Wall -Wextra -Werror -pthread
 
 T_FLAG	= -fsanitize=thread
 
@@ -16,8 +16,8 @@ OBJ		= $(SRC:.c=.o)
 
 all:		$(NAME)
 
-$(NAME):	$(OBJ) MAKEFILE $(INC)
-			$(CC) $(OBJ) $(E_FLAGS) $(T_FLAG) -o $(NAME)
+$(NAME):	$(OBJ) $(INC)
+			$(CC) $(OBJ) $(E_FLAGS) -I$(INC) -o $(NAME)
 
 %.o : %.c 	$(INC))
 			$(CC) -c $< -o $@

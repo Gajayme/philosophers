@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:35:54 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/29 20:26:36 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/05 19:45:26 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	valid(char **av, t_table *table)
 	int	i;
 
 	i = 1;
-	// table->t_arr = NULL;
-	// table->m_arr = NULL;
 	table->eat_num = 0;
 	if (adder(av[i++], 1, &table->a_phl))
 		return (1);

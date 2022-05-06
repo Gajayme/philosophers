@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:09:15 by gajayme           #+#    #+#             */
-/*   Updated: 2022/04/29 00:28:50 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/05 19:52:57 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	waiter(int time)
 	struct timeval	now;
 
 	gettimeofday(&start, NULL);
-	usleep ((time * 95) / 100);
+	usleep (time * 950);
 	gettimeofday(&now, NULL);
 	while (((now.tv_sec * 1000 - start.tv_sec * 1000)
 			+ (now.tv_usec / 1000 - start.tv_usec / 1000)) < time)
