@@ -16,10 +16,10 @@ OBJ		= $(SRC:.c=.o)
 
 all:		$(NAME)
 
-$(NAME):	$(OBJ) $(INC)
-			$(CC) $(OBJ) $(E_FLAGS) -I$(INC) -o $(NAME)
+$(NAME):	$(OBJ) Makefile $(INC)
+			$(CC) $(OBJ) $(E_FLAG) -I$(INC) -o $(NAME)
 
-%.o : %.c 	$(INC))
+%.o : %.c 	$(INC)
 			$(CC) -c $< -o $@
 
 clean:

@@ -16,7 +16,7 @@ OBJ		= 	$(SRC:.c=.o)
 
 all: 		$(NAME)
 
-$(NAME):	$(OBJ) $(INC)
+$(NAME):	$(OBJ) Makefile $(INC)
 			$(CC) $(OBJ) $(E_FLAG) -o $(NAME)
 
 %.o : %.c 	$(INC)

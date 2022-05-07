@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/05/04 15:35:20 by lyubov           ###   ########.fr       */
+/*   Updated: 2022/05/07 20:17:23 by gajayme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	*fed_monitor(void *arg)
 	t_philo	*philo;
 
 	philo = ((t_philo *)arg);
-	i = -1;
+	i = 0;
 	while (++i < philo->a_phl)
 		sem_wait(philo->sem_fed);
 	sem_post(philo->sem_d);
