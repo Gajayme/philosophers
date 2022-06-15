@@ -7,7 +7,7 @@ My version of solwing __Dining philosophers problem__. First one with threads an
 ---
 ### Description
 
-21 school's slightly modified version of the problem says:
+``21 school's slightly modified version of the problem says:``
 
 One or more philosophers sit at a round table. There is a large bowl of spaghetti in the middle of the table.
 The philosophers alternatively eat, think, or sleep. While they are eating, they are not thinking nor sleeping;
@@ -22,5 +22,22 @@ is about to die. No need to say that philosophers should avoid dying!
 And our mission is to write such an algorithm that avoid deadlock and effectivly synchronize philosopherse's activities
 (eating, sleeping, thinking).
 
-You can read the original description of the problem down here:
+``You can read the original description of the problem down here:``
 https://en.wikipedia.org/wiki/Dining_philosophers_problem
+
+
+---
+### How to run
+
+First of all you should download and make project!
+
+All of makefile rules:
+
+| Rule | Function |
+| - | - |
+| ``make`` | Threads and mutes simulation |
+| ``make all`` | Same as just make |
+| ``make bonus`` | Processes and semaphores simulation |
+| ``make clean`` | Deletes all object files |
+| ``make fclean`` | Deletes the object files and the _philo_ file |
+| ``make re`` | makes ``fclean`` and ``make`` again |
