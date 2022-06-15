@@ -42,7 +42,6 @@ All of makefile rules:
 | ``make fclean`` | Deletes the object files and the _philo_ file |
 | ``make re`` | makes ``fclean`` and ``make`` again |
 
-Run the project:
+And then run the project (time in ms, last argument is optional):
 **``./philosophers <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [times_each_philosopher_must_eat]``**
 
-All time in ms, last argument is optional.
