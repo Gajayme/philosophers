@@ -43,5 +43,7 @@ All of makefile rules:
 | ``make re`` | makes ``fclean`` and ``make`` again |
 
 And then run the project (time in ms, last argument is optional):
-**``./philosophers <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [times_each_philosopher_must_eat]``**
+```
+./philosophers <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [times_each_philosopher_must_eat]
+```
 
