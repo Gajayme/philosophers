@@ -4,6 +4,15 @@ My version of solwing __Dining philosophers problem__. First one with threads an
 
 ![An_illustration_of_the_dining_philosophers_problem](https://user-images.githubusercontent.com/90501558/173900008-cd667806-2561-48aa-bbb6-8dc582fc078f.png)
 
+
+### Index
+
+* [Description](#Description)
+* [How to Run](#How_to_run)
+* [Test Examples](#Test_examples)
+* [Contacts](#Contacts)
+* 
+
 ---
 ### Description
 
@@ -71,6 +80,9 @@ A philosophers should die!
 ```commandline
 ./philo 4 310 200 200
 ```
+
+You can try your own test.
+But always mind your hardware characteristics and dont set too strict rules :)
 ---
 ### Contacts
 
