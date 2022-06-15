@@ -48,33 +48,39 @@ And then run the project (time in ms, last argument is optional):
 ```
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/90501558/173922097-f6672b84-0fbb-47a7-ae38-c7a0509ce857.gif)
 
+![ezgif com-video-to-gif-2](https://user-images.githubusercontent.com/90501558/173923374-0fdf4358-ebb9-496d-a0bb-8e2ecf41fda6.gif)
+
+
 ___
 ### Test Examples
 
----
 The philosopher should not eat and should die!
 ```commandline
 ./philo 1 800 200 200
 ```
----
 No one should die!
 ```commandline
 ./philo 5 800 200 200
 ```
----
 No one should die and the simulation should stop when all the philosophers has 
 eaten at least 7 times each.
 ```commandline
 ./philo 5 800 200 200 7
 ```
----
 No one should die!
 ```commandline
 ./philo 4 410 200 200
 ```
----
 A philosophers should die!
 ```commandline
 ./philo 4 310 200 200
 ```
 ---
+### Contacts
+
+Feel free to clone this project, check the code or contact me if you have any question or suggestions:
+
+* 21 Login:   **gajayme**
+* Email:    **DonBazilikos@gmail.com**
+
+Good luck and ave a good time! 🖨🖨🖨
