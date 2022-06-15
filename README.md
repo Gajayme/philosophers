@@ -35,9 +35,14 @@ All of makefile rules:
 
 | Rule | Function |
 | - | - |
-| ``make`` | Threads and mutes simulation |
+| ``make`` | Threads and Mutex simulation |
 | ``make all`` | Same as just make |
-| ``make bonus`` | Processes and semaphores simulation |
+| ``make bonus`` | Processes and Semaphores simulation |
 | ``make clean`` | Deletes all object files |
 | ``make fclean`` | Deletes the object files and the _philo_ file |
 | ``make re`` | makes ``fclean`` and ``make`` again |
+
+Run the project:
+**``./philosophers <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [times_each_philosopher_must_eat]``**
+
+All time in ms, last argument is optional.
