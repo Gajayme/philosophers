@@ -8,8 +8,8 @@ My version of solwing __Dining philosophers problem__. First one with threads an
 ### Index
 
 * [Description](#Description)
-* [How to Run](#How_to_run)
-* [Test Examples](#Test_examples)
+* [How to run](#How to run)
+* [Test examples](#Test examples)
 * [Contacts](#Contacts)
 * 
 
@@ -57,7 +57,7 @@ And then run the project (time in ms, last argument is optional):
 ```
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/90501558/173922097-f6672b84-0fbb-47a7-ae38-c7a0509ce857.gif)
 ___
-### Test Examples
+### Test examples
 
 The philosopher should not eat and should die!
 ```commandline
