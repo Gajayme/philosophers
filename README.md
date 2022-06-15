@@ -4,6 +4,8 @@ I never thought philosophy would be so deadly
 
 My version of solwing __Dining philosophers problem__. First one with threads and mutex, second with processes and semaphores. 
 
+https://en.wikipedia.org/wiki/File:An_illustration_of_the_dining_philosophers_problem.png![image](https://user-images.githubusercontent.com/90501558/173899878-3b031a79-2c29-4133-8e4c-27befa8be26a.png)
+
 ### Description
 
 One or more philosophers sit at a round table. There is a large bowl of spaghetti in the middle of the table.
