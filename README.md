@@ -31,7 +31,7 @@ https://en.wikipedia.org/wiki/Dining_philosophers_problem
 
 First of all you should download and make project!
 
-All of makefile rules:
+``All of makefile rules:``
 
 | Rule | Function |
 | - | - |
