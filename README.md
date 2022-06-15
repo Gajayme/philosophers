@@ -47,10 +47,6 @@ And then run the project (time in ms, last argument is optional):
 ./philosophers <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [times_each_philosopher_must_eat]
 ```
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/90501558/173922097-f6672b84-0fbb-47a7-ae38-c7a0509ce857.gif)
-
-![ezgif com-video-to-gif-2](https://user-images.githubusercontent.com/90501558/173923374-0fdf4358-ebb9-496d-a0bb-8e2ecf41fda6.gif)
-
-
 ___
 ### Test Examples
 
@@ -83,4 +79,4 @@ Feel free to clone this project, check the code or contact me if you have any qu
 * 21 Login:   **gajayme**
 * Email:    **DonBazilikos@gmail.com**
 
-Good luck and ave a good time! 🖨🖨🖨
+Good luck and ave a good time! 🤔🤔🤔
