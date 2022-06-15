@@ -80,9 +80,9 @@ A philosophers should die!
 ```commandline
 ./philo 4 310 200 200
 ```
-
 You can try your own test.
-But always mind your hardware characteristics and dont set too strict rules :)
+But always mind your hardware characteristics and dont set too strict rules
+
 ---
 ### Contacts
 
