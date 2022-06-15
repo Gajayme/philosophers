@@ -1,12 +1,13 @@
 # philosophers (21 school project)
 
-I never thought philosophy would be so deadly 
-
 My version of solwing __Dining philosophers problem__. First one with threads and mutex, second with processes and semaphores. 
 
 ![An_illustration_of_the_dining_philosophers_problem](https://user-images.githubusercontent.com/90501558/173900008-cd667806-2561-48aa-bbb6-8dc582fc078f.png)
 
+---
 ### Description
+
+21 school's slightly modified version of the problem says:
 
 One or more philosophers sit at a round table. There is a large bowl of spaghetti in the middle of the table.
 The philosophers alternatively eat, think, or sleep. While they are eating, they are not thinking nor sleeping;
@@ -18,4 +19,8 @@ Once awake, they start thinking again. The simulation stops when a philosopher d
 to eat and should never starve. Philosophers don’t speak with each other. Philosophers don’t know if another philosopher
 is about to die. No need to say that philosophers should avoid dying!
 
+And our mission is to write such an algorithm that avoid deadlock and effectivly synchronize philosopherse's activities
+(eating, sleeping, thinking).
+
+You can read the original description of the problem down here:
 https://en.wikipedia.org/wiki/Dining_philosophers_problem
