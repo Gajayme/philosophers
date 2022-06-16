@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:41 by gajayme           #+#    #+#             */
-/*   Updated: 2022/05/05 19:11:36 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/06/15 20:43:56 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	life_circle(t_philo *philo, t_table *table)
 				&& (timer(philo[i].lst_m) > table->t_die))
 			{
 				table->is_d = 1;
-				printf("%ld %d died\n", timer(table->t_strt), i + 1);
+				printf("%s%ld %d died%s\n",CRED, timer(table->t_strt), i + 1, CRED);
 				pthread_mutex_unlock(&table->m_arr[table->a_phl]);
 				return ;
 			}

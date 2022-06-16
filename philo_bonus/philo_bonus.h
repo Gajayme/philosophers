@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gajayme <gajayme@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lyubov <lyubov@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 16:14:56 by gajayme           #+#    #+#             */
-/*   Updated: 2022/05/05 18:45:25 by gajayme          ###   ########.fr       */
+/*   Updated: 2022/06/15 20:51:10 by lyubov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@
 # include <fcntl.h>
 # include <semaphore.h>
 
-//need to check funcks in header
+# define CGRN "\x1B[32m"
+# define CRED "\x1B[31m"
+# define CWHT "\x1B[37m"
+# define CCYN "\x1B[36m"
+# define CMAG "\x1B[35m"
+
 typedef struct s_philo
 {
 	int				n_phl;
